@@ -1,0 +1,16 @@
+{
+  "name": "basic_config",
+  "dataloader": "gpt2",
+  "dataloader_class": "BaseDataset",
+  "helper": "gpt2",
+  "model": "GPT2",
+  "model_class": "GenerationModel",
+  "dataroot": "data/original",
+  "model_name_or_path": "gpt2",
+
+  "history_max_utterances": 1000000,
+  "history_max_tokens": 128,
+
+  "optimizer": "AdamW",
+  "lr_scheduler": "normal"
+}

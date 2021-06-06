@@ -1,0 +1,8 @@
+torch~=1.7.0
+pytorch-ignite
+transformers~=3.0
+tensorboardX==1.8
+spacy
+nltk
+bert_score
+gensim
