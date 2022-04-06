@@ -49,6 +49,7 @@ def main():
   parser.add_argument("--fp16", type=str, default="",
                       help="Set to O0, O1, O2 or O3 for fp16 training (see apex documentation)")
   parser.add_argument("--seed", type=int, default=43)
+  parser.add_argument("--result_with_history", action='store_true')
   parser.add_argument("--debug", action='store_true')
   args = parser.parse_args()
 
@@ -87,9 +88,10 @@ def main():
 
   # Model construction
   config = AutoConfig.from_pretrained(args.model_name_or_path)
-  SPECIAL_TOKENS = dataloader.SPECIAL_TOKENS
   tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
-  tokenizer.add_special_tokens(SPECIAL_TOKENS)
+  if hasattr(dataloader, "SPECIAL_TOKENS"):
+    SPECIAL_TOKENS = dataloader.SPECIAL_TOKENS
+    tokenizer.add_special_tokens(SPECIAL_TOKENS)
   args._tokenizer = tokenizer
 
   dataset_class = getattr(dataloader, "testDataset") # TODO: suitable
@@ -131,13 +133,15 @@ def main():
       for didt, gt, res, his in zip(dialog_id, ground_truth, sampled_output_text, history):
         example = {}
         example["dialog_id"] = didt
+        if args.result_with_history:
+          example["post"] = tokenizer.decode(his, skip_special_tokens=True)
         example["ground_truth"] = gt
         example["generated"] = res
         all_output_texts.append(example)
 
         if args.debug:
           print(f"Dialog: {didt}")
-          print(tokenizer.decode(his, skip_special_tokens=True))
+          print(example.get("post", tokenizer.decode(his, skip_special_tokens=True)))
           print("Generate:", res)
           print("  Ground:", gt)
           print()

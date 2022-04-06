@@ -118,9 +118,10 @@ def main():
 
   # Tokenizer construction
   config = AutoConfig.from_pretrained(args.model_name_or_path, return_dict = True)
-  SPECIAL_TOKENS = dataloader.SPECIAL_TOKENS
   tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
-  tokenizer.add_special_tokens(SPECIAL_TOKENS)
+  if hasattr(dataloader, "SPECIAL_TOKENS"):
+    SPECIAL_TOKENS = dataloader.SPECIAL_TOKENS
+    tokenizer.add_special_tokens(SPECIAL_TOKENS)
   args._tokenizer = tokenizer
 
   # Dataset construction

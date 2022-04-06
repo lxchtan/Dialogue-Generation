@@ -217,5 +217,6 @@ fabric.properties
 
 __test__.py
 data/*
+!data/samples
 runs/*
 logs/*

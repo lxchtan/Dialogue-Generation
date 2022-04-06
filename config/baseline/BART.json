@@ -1,0 +1,16 @@
+{
+  "name": "basic_config",
+  "dataloader": "bart",
+  "dataloader_class": "BaseDataset",
+  "helper": "bart",
+  "model": "BART",
+  "model_class": "GenerationModel",
+  "dataroot": "data/original",
+  "model_name_or_path": "facebook/bart-base",
+
+  "history_max_utterances": 1000000,
+  "history_max_tokens": 128,
+
+  "optimizer": "AdamW",
+  "lr_scheduler": "normal"
+}
