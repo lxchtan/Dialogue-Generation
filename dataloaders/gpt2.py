@@ -5,7 +5,7 @@ import logging
 
 from itertools import chain
 from utils.data import truncate_sequences, pad_ids, pad_ids_2D
-from .datawalker import DatasetWalker
+from dataloaders.datawalker import DatasetWalker
 
 from tqdm import tqdm
 
